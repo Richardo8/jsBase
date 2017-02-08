@@ -2,7 +2,7 @@ myName = "global";
 
 function foo() {
     console.log(myName);
-    var myName = "local";//如果注释掉该行，函数内部没有var myName这个变量，此时就会用到全局定义的变量，但是函数作用域中定义了变量之后，会前置定义，所以此时可见第一个console中的myName是灰色的，也就是未定义
+    var myName = "local";//如果注释掉该行，函数内部没有var myName这个变量，此时就会用到全局定义的变量，但是函数作用域中定义了变量之后，会前置定义，所以此时可见第一个console中的myName是灰色的，也就是未定义。变量提升只出现在var定义的时候。
     console.log(myName);
 }
 
