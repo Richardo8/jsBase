@@ -1,0 +1,21 @@
+{
+  "name": "js_base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Richardo8/jsBase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Richardo8/jsBase/issues"
+  },
+  "homepage": "https://github.com/Richardo8/jsBase#readme"
+}
