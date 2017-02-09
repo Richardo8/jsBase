@@ -110,5 +110,51 @@ function Cat() {
 var animal = new Animal();
 var cat = new Cat();
 animal.showName();
+animal.showName.call(cat);
 animal.showName.call(cat, ',');
 animal.showName.apply(cat, []);
+
+//例5 实现继承
+function AnimalBase(name) {
+    this.name = name;
+    this.showName = function () {
+        console.log(this.name);
+    }
+}
+
+function Dog(name) {
+    AnimalBase.call(this, name)
+}
+
+var dog = new Dog('Hey');
+dog.showName();
+/*
+ Animal.call(this) 的意思就是使用 Animal对象代替this对象，那么 Cat中不就有Animal的所有属性和方法了吗，Cat对象就能够直接调用Animal的方法以及属性了。
+ */
+
+//例6 实现多层继承
+var s1 = function (name) {
+    this.name = name;
+}
+
+var s2 = function (sex) {
+    this.sex = sex;
+}
+
+var s3 = function (age) {
+    this.age = age;
+}
+
+var Student = function (name, sex, age, score) {
+    s1.call(this, name);
+    s2.call(this, sex);
+    s3.call(this, age);
+    this.score = score;
+}
+
+Student.prototype.constructor = Student;
+var s = new Student('jack', 'male', '12', '100')
+console.log(s.name);
+console.log(s.sex);
+console.log(s.age);
+console.log(s.score);
