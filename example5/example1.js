@@ -213,6 +213,8 @@ console.log(colorP.toString());
 class BigColorPoint extends ColorPoint {
     constructor(x, y, color, big = "big"){
         super(x, y, color);
+        console.log("super作为对象时，指向父类的原型对象。");
+        console.log(super.toString());
         this.big = big;
     }
 
@@ -223,3 +225,21 @@ class BigColorPoint extends ColorPoint {
 
 let bcP = new BigColorPoint(1,2,'black');
 console.log(bcP.toString());
+
+console.log(BigColorPoint.__proto__ === ColorPoint);
+console.log(BigColorPoint.prototype.__proto__ === ColorPoint.prototype);
+
+
+console.log(Object.getPrototypeOf(BigColorPoint) === ColorPoint);
+console.log(Object.getPrototypeOf(BigColorPoint) === Point);
+/*Object.getPrototypeOf方法可以用来从子类上获取父类。可以使用这个方法判断，一个类是否继承了另一个类。*/
+
+
+
+
+
+
+
+
+
+
