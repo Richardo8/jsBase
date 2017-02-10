@@ -234,7 +234,77 @@ console.log(Object.getPrototypeOf(BigColorPoint) === ColorPoint);
 console.log(Object.getPrototypeOf(BigColorPoint) === Point);
 /*Object.getPrototypeOf方法可以用来从子类上获取父类。可以使用这个方法判断，一个类是否继承了另一个类。*/
 
+console.log("====================")
 
+//原生构造函数的继承
+class MyArray extends Array {
+    constructor(...args){
+        super(...args);
+    }
+}
+
+let arr = new MyArray();
+arr[0] = 12;
+console.log(arr.length);
+
+arr.length = 0;
+console.log(arr[0]);
+/*ES6可以自定义原生数据结构（比如Array、String等）的子类，这是ES5无法做到的。*/
+
+console.log('============')
+
+//定义一个带版本功能的数组
+class VersionArray extends Array {
+    constructor(){
+        super();
+        this.history = [[]];
+    }
+    commit(){
+        this.history.push(this.slice());
+    }
+    revert(){
+        this.slice(0, this.length, ...this.history[this.history.length - 1])
+    }
+}
+
+let x = new VersionArray();
+
+x.push(1);
+x.push(2);
+console.log(x);
+console.log(x.history);
+
+x.commit();
+console.log(x.history);
+x.push(3);
+console.log(x);
+
+x.revert();
+console.log(x);
+
+console.log('======================')
+
+//类的静态方法
+class FooStatic {
+    static classMethod(){
+        return 'hello';
+    }
+}
+
+console.log(FooStatic.classMethod());
+
+let fooS = new FooStatic();
+// fooS.classMethod(); 报错：Uncaught TypeError: fooS.classMethod is not a function
+/*类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。*/
+/*父类的静态方法，可以被子类继承。*/
+
+class sonFooStatic extends FooStatic {
+    static classMethod(){
+        return super.classMethod() + ', too';
+    }
+}
+
+console.log(sonFooStatic.classMethod());
 
 
 
