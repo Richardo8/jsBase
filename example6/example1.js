@@ -70,17 +70,24 @@ function Person2(name, age, job) {
     this.name = name;
     this.age = age;
     this.job = job;
-    this.firend = ['jack', 'mack'];
+    this.friends = ['jack', 'mack'];
 }
 
 Person2.prototype = {
-    constructor: person2,
+    constructor: Person2,
     sayName: function () {
         console.log(this.name);
     }
 }
 
-var p5 = new Person2()
+var p5 = new Person2('jack', 20, 'Engineer');
+var p6 = new Person2('jack-C', 24, 'Engineer');
+p5.friends.push('Van');
+console.log(p5.friends);
+console.log(p6.friends);
+console.log(p5.sayName === p6.sayName);
+console.log(p5.friends === p6.friends);
+/*组合使用构造函数模式和原型模式是创建自定义类型的最常见方式。构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。这种混成模式还支持向构造函数传递参数，是用来定义引用类型的一种默认模式*/
 
 
 
