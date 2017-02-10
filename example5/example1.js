@@ -209,3 +209,17 @@ class ColorPoint extends Point {
 let colorP = new ColorPoint(1,2,'black');
 console.log(colorP.toString());
 
+//多层继承
+class BigColorPoint extends ColorPoint {
+    constructor(x, y, color, big = "big"){
+        super(x, y, color);
+        this.big = big;
+    }
+
+    toString(){
+        return this.big + ', ' + super.toString();
+    }
+}
+
+let bcP = new BigColorPoint(1,2,'black');
+console.log(bcP.toString());
