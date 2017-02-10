@@ -328,7 +328,7 @@ function copyProperties(target, source) {
     }
 }
 
-class DistributedEdit extends mix(Loggable, Serializable){
+class DistributedEdit extends Mix(Loggable, Serializable){
 
 }
 
