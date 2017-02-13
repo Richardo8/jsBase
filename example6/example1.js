@@ -89,11 +89,49 @@ console.log(p5.sayName === p6.sayName);
 console.log(p5.friends === p6.friends);
 /*组合使用构造函数模式和原型模式是创建自定义类型的最常见方式。构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。这种混成模式还支持向构造函数传递参数，是用来定义引用类型的一种默认模式*/
 
+//7.动态原型模式
+function Person3(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+
+    if(typeof this.sayName != "function"){
+        Person3.prototype.sayHisName = function () {
+            console.log(this.name);
+        }
+    }
+}
+
+let friend = new Person3("jack", 29, 'Engineer')
+friend.sayHisName();
+
+//8.寄生构造函数模式
+function Person4(name, age, job) {
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayThisName = function () {
+        console.log(this.name);
+    }
+    return o;
+}
+var friend1 = new Person4("jack", 29, 'Engineer')
+friend1.sayThisName();
 
 
+//9.稳妥构造函数模式
+function Person5(name, age, job) {
+    var o = new Object();
+    o.sayName = function () {
+        console.log(name);
+    }
+    return o;
+}
 
-
-
+var friend2 = Person5('jack', 28, 'Engineer')
+friend2.sayName();
+/*所谓稳妥对象指没有公共属性，而且其方法也不引用this的对象。稳妥对象最适合在一些安全环境中(这些环境会禁止使用this和new)或者在防止数据被其他应用程序改动时使用。*/
 
 
 
