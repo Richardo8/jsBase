@@ -95,12 +95,35 @@ console.log(Fibonacci(10));
 // console.log(Fibonacci(500));
 //堆栈溢出 死机
 
+function Fibonacci1(n ,ac1 = 1, ac2 = 1) {
+    if(n <= 1) { return ac2 };
 
+    return Fibonacci1(n - 1, ac2, ac1 + ac2);
+}
 
+console.log(Fibonacci1(100));
+console.log(Fibonacci1(1000));
+console.log(Fibonacci1(2000));
 
+/*我们知道，函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。
 
+ 尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了。*/
 
+//函数柯里化 意思是将多参数的函数转换成单参数的形式。
+function currying(fn, n) {
+    return function (m) {
+        return fn.call(this, m, n);
+    }
+}
 
+function tailFactorial(n, total) {
+    if(n === 1) return total;
+    return tailFactorial(n - 1, n * total);
+}
+
+const factorial = currying(tailFactorial, 1);
+
+console.log(factorial(5));
 
 
 
