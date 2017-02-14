@@ -75,9 +75,25 @@ setTimeout(() => console.log('s2: ', timer.s2), 3100);
 /*Timer函数内部设置了两个定时器，分别使用了箭头函数和普通函数。前者的this绑定定义时所在的作用域（即Timer函数），后者的this指向运行时所在的作用域（即全局对象）。所以，3100毫秒之后，timer.s1被更新了3次，而timer.s2一次都没更新。*/
 
 
+let insert = (value) => ({into:(array) => ({after: (afterValue) => {
+    array.splice(array.indexOf(afterValue) + 1, 0, value);
+    return array;
+}})})
 
+console.log(insert(2).into([1, 3]).after(1));
+//箭头函数多重嵌套
 
+//斐波那契数列 证明尾递归
+function Fibonacci(n) {
+    if(n <= 1) { return 1 };
 
+    return Fibonacci(n -1) + Fibonacci(n - 2);
+}
+
+console.log(Fibonacci(10));
+// console.log(Fibonacci(100));
+// console.log(Fibonacci(500));
+//堆栈溢出 死机
 
 
 
