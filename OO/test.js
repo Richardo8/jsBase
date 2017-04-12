@@ -85,3 +85,55 @@ BookObj.resetTime();
 console.log(newBook.isJsBook);
 newBook.display();
 // 如上例prototype中的方法和属性是共有的
+
+/*使用闭包返回构造函数，实现静态私有变量和静态私有函数*/
+var BookClosure = (function () {
+    // 静态私有变量
+    var bookNum = 0;
+    // 静态私有方法
+    function checkBook(bookNum) {
+       if(bookNum > 2){
+           throw new Error('only 2')
+       }
+    }
+    function _book(newId, newName, newPrice) {
+        var name, price;
+        function checkId(id) {
+
+        }
+        this.getName = function () {
+
+        }
+        this.getPrice = function () {
+
+        }
+        this.setName = function () {
+
+        }
+        this.setPrice = function () {
+
+        }
+        this.id = newId;
+        this.copy = function () {
+
+        }
+        bookNum++;
+        checkBook(bookNum);
+        this.setName(newName);
+        this.setPrice(newPrice);
+    }
+
+    _book.prototype = {
+        isJsBook: false,
+        display: function () {
+
+        }
+    };
+
+    return _book;
+})()
+
+var bookClo1 = new BookClosure('1', 'a', '10');
+var bookClo2 = new BookClosure('1', 'a', '10');
+var bookClo3 = new BookClosure('1', 'a', '10');
+// 上例中前两个可以正确创建，第三个会报错‘only 2’，也就是说使用闭包可以调用类的静态私有属性和静态私有方法。
