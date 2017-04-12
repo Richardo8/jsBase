@@ -135,5 +135,43 @@ var BookClosure = (function () {
 
 var bookClo1 = new BookClosure('1', 'a', '10');
 var bookClo2 = new BookClosure('1', 'a', '10');
-var bookClo3 = new BookClosure('1', 'a', '10');
+// var bookClo3 = new BookClosure('1', 'a', '10');
 // 上例中前两个可以正确创建，第三个会报错‘only 2’，也就是说使用闭包可以调用类的静态私有属性和静态私有方法。
+
+/*继承中的类式继承*/
+// 父类
+function SuperClass() {
+    this.superValue = ['1', '2','3'];
+}
+// 为父类添加公有方法
+SuperClass.prototype.getSuperValue = function () {
+    return this.superValue;
+}
+// 声明子类
+function SubClass() {
+    this.subValue = ['4', '5', '6'];
+}
+// 继承父类
+SubClass.prototype = new SuperClass();
+SubClass.prototype.getSubValue = function () {
+    return this.subValue;
+}
+// 该种继承方式就是新的类的原型被赋予了父类的实例
+
+var instance = new SubClass();
+console.log(instance.getSubValue());
+console.log(instance.getSuperValue());
+// 子类的实例继承了父类的方法
+
+console.log(SubClass instanceof SuperClass);
+console.log(SubClass.prototype instanceof  SuperClass);
+// 以上证明了SubClass并不是继承了SuperClass，而只是SubClass.prototype继承了SuperClass
+
+var instance1 = new SubClass();
+var instance2 = new SubClass();
+console.log(instance2.superValue);
+instance1.superValue.push('7');
+console.log(instance2.superValue);
+// 上例说明了在修改第一个实例的subValue的时候第二个实例的值也会跟着改变，而且实例化父类的时候无法对属性进行初始化
+
+/*继承中的构造函数继承*/
