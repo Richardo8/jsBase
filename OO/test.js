@@ -63,7 +63,12 @@ BookObj.isChinese = true;
 BookObj.resetTime = function () {
     console.log('this is resetTime')
 }
-
+BookObj.prototype = {
+    isJsBook: false,
+    display: function () {
+        console.log('public function');
+    }
+}
 
 var newBook = new BookObj('1', 'abc', '10');
 newBook.getName();
@@ -73,6 +78,10 @@ console.log(newBook.num);//实例不能直接获取到类的属性
 console.log(BookObj.isChinese);
 BookObj.resetTime();
 
-console.log(newBook.isChinese);
-newBook.resetTime()
+// console.log(newBook.isChinese);
+// newBook.resetTime()
 // 如上，实例不能访问类的静态共有属性和方法
+
+console.log(newBook.isJsBook);
+newBook.display();
+// 如上例prototype中的方法和属性是共有的
