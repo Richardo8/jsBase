@@ -175,3 +175,26 @@ console.log(instance2.superValue);
 // 上例说明了在修改第一个实例的subValue的时候第二个实例的值也会跟着改变，而且实例化父类的时候无法对属性进行初始化
 
 /*继承中的构造函数继承*/
+// 声明父类
+function SuperClassStructure(id) {
+    this.books = ['a', 'b', 'c']
+    this.id = id;
+}
+// 父类声明原型方法
+SuperClassStructure.prototype.showBooks = function () {
+    console.log(this.books);
+}
+// 声明子类
+function SubClassStructure(id) {
+    SuperClassStructure.call(this, id);
+    //call方法是关键，实质是将子类的变量放在父类中执行一遍
+}
+var instance3 = new SubClassStructure(1);
+var instance4 = new SubClassStructure(2);
+instance3.books.push('d');
+console.log(instance3.books);
+console.log(instance3.id);
+console.log(instance4.books);
+console.log(instance4.id);
+// instance4.showBooks();
+// 上例表明了修改其中一个实例不会改变父类的值，但是无法使用父类prototype的方法
