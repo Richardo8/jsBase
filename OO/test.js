@@ -198,3 +198,72 @@ console.log(instance4.books);
 console.log(instance4.id);
 // instance4.showBooks();
 // 上例表明了修改其中一个实例不会改变父类的值，但是无法使用父类prototype的方法
+
+/*继承中的组合继承*/
+// 声明父类
+function SuperClassGroup(name) {
+    this.name = name;
+    this.books = ['a', 'b', 'c']
+}
+
+SuperClassGroup.prototype.getName = function () {
+    console.log(this.name);
+}
+// 声明子类
+function SubClassGroup(name, time) {
+    SuperClassGroup.call(this, name);
+    this.time = time;
+}
+
+SubClassGroup.prototype = new SuperClassGroup();
+
+var instance5 = new SubClassGroup('a', 1000);
+var instance6 = new SubClassGroup('b', 2000);
+console.log(instance5);
+console.log(instance6);
+instance5.getName();
+instance6.getName();
+instance5.books.push('d');
+console.log(instance5.books);
+console.log(instance6.books);
+/*组合继承就是将之前的两种继承模式合为一体，属性通过构造函数继承，使用call方法，方法通过类式继承，解决了以上两种方式的缺点。但是这种方法会调用两边父类构造函数。*/
+
+/*继承中的原型式继承*/
+function inheritObject(o) {
+    function F() {
+
+    }
+    F.prototype = o;
+    return new F();
+}
+
+var bookExample = {
+    name: 'js book',
+    alikeBook: ['a', 'b'],
+    getName: function () {
+        console.log(this.name);
+    }
+}
+
+var newBookEx1 = inheritObject(bookExample);
+var newBookEx2 = inheritObject(bookExample);
+newBookEx1.name = 'c';
+newBookEx1.alikeBook.push('d');
+newBookEx1.getName();
+newBookEx2.name = 'c';
+newBookEx2.alikeBook.push('d');
+newBookEx2.getName();
+console.log(newBookEx1.alikeBook);
+console.log(newBookEx2.alikeBook);//问题依然出现，共用了父类的属性。
+
+/*继承中的寄生式继承*/
+//声明基对象
+var book1 = {
+    name: 'a',
+    alikeBook: ['b', 'c']
+}
+function createBook(obj) {
+    // 通过原型继承方式创建新对象
+    var o = new inheritObject(obj);
+    //拓展新对象
+}
