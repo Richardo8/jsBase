@@ -277,3 +277,4 @@ console.log(createbook);
 createbook.getName();
 // 不能初始化属性
 
+
