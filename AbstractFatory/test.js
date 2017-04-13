@@ -83,7 +83,7 @@ BMW.prototype.getSpeed = function () {
 }
 
 var Q7 = new BMW(1500000, 200);
-console.log(Q7);
+console.log(Q7.type);
 console.log(Q7.getPrice());
 console.log(Q7.getSpeed());
 
