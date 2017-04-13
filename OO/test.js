@@ -314,3 +314,39 @@ console.log(instance8.books);
 instance7.getName()
 instance7.getTime()
 /*本质就是先利用构造函数制造出子类，然后将储存着父类方法的原型存在一个变量中，但是此时变量中的constructor是父类的，所以需要修改成子类的，修改之后再将此值赋予子类，就能解决各种问题了。子类若想继续添加方法，只能用点语法添加，不能使用prototype对象，否则会造成覆盖*/
+
+
+function Add() {
+    console.log(arguments);
+}
+
+Add(1,2,3);//arguments是方法中的一个对象，包含了调用方法时传入的所有的数据
+
+/*多继承*/
+Object.prototype.mix = function () {
+    var i = 1,
+        len = arguments.length,
+        target = arguments[0],
+        arg;
+    for(; i < len; i++){
+        arg = arguments[i]
+        for(var property in arg){
+            target[property] = arg[property]
+        }
+    }
+    return target;
+}
+
+var first = {
+    name: 'a',
+    alike: ['b', 'c', 'd']
+}
+
+var second = {
+    color: 'red'
+}
+
+var otherBook = {};
+
+otherBook = otherBook.mix(first, second);
+console.log(otherBook)
