@@ -277,4 +277,40 @@ console.log(createbook);
 createbook.getName();
 // 不能初始化属性
 
+/*继承中的寄生组合式继承
+* 就是寄生式和构造函数式的组合*/
+function inheritPrototype(SuperClass, SubClass) {
+    // 复制一份父类的原型副本保存在变量中
+    var p = inheritObject(SuperClass.prototype)
+    // 修正因为重写子类原型导致子类的constructor属性被修改
+    p.constructor = SubClass;
+    // 设置子类的原型
+    SubClass.prototype = p;
+}
 
+// 测试
+// 定义父类
+function Super(name) {
+    this.name = name;
+    this.books = ['a', 'b', 'c']
+}
+Super.prototype.getName = function () {
+    console.log(this.name);
+}
+// 定义子类
+function Sub(name, time) {
+    Super.call(this, name);
+    this.time = time;
+}
+inheritPrototype(Super, Sub);
+Sub.prototype.getTime = function () {
+    console.log(this.time);
+}
+var instance7 = new Sub('a', 1)
+var instance8 = new Sub('b', 2)
+instance7.books.push('d');
+console.log(instance7.books);
+console.log(instance8.books);
+instance7.getName()
+instance7.getTime()
+/*本质就是先利用构造函数制造出子类，然后将储存着父类方法的原型存在一个变量中，但是此时变量中的constructor是父类的，所以需要修改成子类的，修改之后再将此值赋予子类，就能解决各种问题了。*/
